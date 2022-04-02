@@ -1,4 +1,4 @@
-import React, { createElement, useState } from 'react';
+import React, { createElement, useState, useRef } from 'react';
 import {
   Text,
   View,
@@ -57,7 +57,7 @@ const setupNationality = (chosenCountry: Country) => {
                                 `${chosenPronoun} ${chosenCountry.getNationality(chosenGender)}`);
 }
 
-const createTypedQuestionData = () => {
+export const createTypedQuestionData = () => {
     console.log("Creating TypedQuestion");
 
     // Choose a country at random
@@ -75,17 +75,14 @@ const createTypedQuestionData = () => {
 }
 
 export const TypedQuestion = (props) => {
-    const [data, setData] = useState(createTypedQuestionData);
 
     const [isCorrectText, setIsCorrectText] = useState("");
     const [givenAnswer, setGivenAnswer] = useState("");
     const [feedbackText, setFeedbackText] = useState("");
 
     const onSubmit = () => {
-        setSubmitButton(<Button title="Submit" onPress={onSubmit} disabled/>)
-
         let isCorrect: boolean = false;
-        for (const validAnswer of data.answers) {
+        for (const validAnswer of props.data.answers) {
             if (givenAnswer.toLowerCase() === validAnswer.toLowerCase()) {
                 isCorrect = true;
                 break;
@@ -96,20 +93,30 @@ export const TypedQuestion = (props) => {
             setIsCorrectText("Correct!");
         } else {
             setIsCorrectText("Oops!");
-            setFeedbackText(data.feedbackText);
+            setFeedbackText(props.data.feedbackText);
         }
-        
-        props.onSubmit();
+
+        setSubmitButton(<Button title="Submit" disabled/>);
     }
 
+    const answerInputRef = useRef();
     const [submitButton, setSubmitButton] = useState(<Button title="Submit" onPress={onSubmit}/>);
+
+    if (props.needsClearState) {
+        setIsCorrectText("");
+        setGivenAnswer("");
+        setFeedbackText("");
+        setSubmitButton(<Button title="Submit" onPress={onSubmit}/>);
+        answerInputRef.current.setNativeProps({ text: "" });
+        props.setNeedsClearState(false);
+    }
 
     return (
         <View>
-            <Image source={data.flagURL}
+            <Image source={props.data.flagURL}
                    style={{width: "50%", height: "50%"}}/>
-            <Text>{data.questionText}</Text>
-            <TextInput onChangeText={setGivenAnswer}/>
+            <Text>{props.data.questionText}</Text>
+            <TextInput onChangeText={setGivenAnswer} ref={answerInputRef}/>
             {submitButton}
 
             <Text>{isCorrectText}</Text>

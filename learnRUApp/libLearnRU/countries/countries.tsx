@@ -8,7 +8,7 @@ import {
   Button
 } from 'react-native';
 
-import { TypedQuestion } from './typedQuestion';
+import { TypedQuestion, createTypedQuestionData } from './typedQuestion';
 
 function shuffleArray(array) {
     for (let i = array.length - 1; i > 0; i--) {
@@ -30,42 +30,31 @@ const ChoiceQuestion = () => {
 /**
  * Randomly generates and renders a new question from the provided dictionary.
  */
-const newQuestion = (onSubmitCallback) => {
+const newQuestion = () => {
     console.log("New question requested");
 
-    const questionTypes = [TypedQuestion/*, ChoiceQuestion*/];
+    const questionTypes = [{element: TypedQuestion, data: createTypedQuestionData} /*, ChoiceQuestion*/];
 
     // Load the next question
-    return questionTypes[Math.floor(Math.random() * questionTypes.length)]({onSubmit: onSubmitCallback});
+    return questionTypes[Math.floor(Math.random() * questionTypes.length)];
 };
 
 export const CountriesScreen = ({navigation}) => {
-    const [needsNewQuestion, setNeedsNewQuestion] = useState(false);
-
     const onNext = () => {
-        setNextButton(<Button title="Next" disabled/>);
-        setNeedsNewQuestion(true);
+        setQuestion(newQuestion());
+        setData(question.data());
+        setNeedsClearState(true);
     }
 
-    useEffect(() => {
-        if (needsNewQuestion) {
-            setNeedsNewQuestion(false);
-        }
-    });
-
-    const [nextButton, setNextButton] = useState(<Button title="Next" disabled/>);
-
-    const onSubmit = () => {
-        setNextButton(<Button title="Next" onPress={onNext}/>);
-    };
-
-    const [question, setQuestion] = useState(newQuestion(onSubmit));
+    const [question, setQuestion] = useState(newQuestion());
+    const [data, setData] = useState(question.data());
+    const [needsClearState, setNeedsClearState] = useState(false);
 
     return (
         <SafeAreaView>
-            {question}
+            {question.element({data: data, needsClearState: needsClearState, setNeedsClearState: setNeedsClearState})}
             <Button title="Report"/>
-            {nextButton}
+            <Button title="Next" onPress={onNext}/>
         </SafeAreaView>
     );
 };
