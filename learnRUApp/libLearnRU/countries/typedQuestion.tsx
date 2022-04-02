@@ -1,4 +1,4 @@
-import React, { createElement, useState, useRef } from 'react';
+import React, { useState, useRef } from 'react';
 import {
   Text,
   View,
@@ -7,7 +7,7 @@ import {
   Button,
 } from 'react-native';
 
-import { Countries } from './countriesDb';
+import { Countries, Country } from './countriesDb';
 
 class TypeQuestionData {
     flagURL;

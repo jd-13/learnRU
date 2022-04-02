@@ -9,23 +9,7 @@ import {
 } from 'react-native';
 
 import { TypedQuestion, createTypedQuestionData } from './typedQuestion';
-
-function shuffleArray(array) {
-    for (let i = array.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        const temp = array[i];
-        array[i] = array[j];
-        array[j] = temp;
-    }
-}
-
-const ChoiceQuestion = () => {
-    return (
-        <View>
-
-        </View>
-    );
-}
+import { ChoiceQuestion, createChoiceQuestionData } from './choiceQuestion';
 
 /**
  * Randomly generates and renders a new question from the provided dictionary.
@@ -33,7 +17,8 @@ const ChoiceQuestion = () => {
 const newQuestion = () => {
     console.log("New question requested");
 
-    const questionTypes = [{element: TypedQuestion, data: createTypedQuestionData} /*, ChoiceQuestion*/];
+    const questionTypes = [{element: TypedQuestion, data: createTypedQuestionData},
+                           {element: ChoiceQuestion, data: createChoiceQuestionData}];
 
     // Load the next question
     return questionTypes[Math.floor(Math.random() * questionTypes.length)];
