@@ -14,7 +14,7 @@ import { ChoiceQuestion, createChoiceQuestionData } from './choiceQuestion';
 /**
  * Randomly generates and renders a new question from the provided dictionary.
  */
-const newQuestion = () => {
+const getNewQuestion = () => {
     console.log("New question requested");
 
     const questionTypes = [{element: TypedQuestion, data: createTypedQuestionData},
@@ -25,15 +25,17 @@ const newQuestion = () => {
 };
 
 export const CountriesScreen = ({navigation}) => {
+
     const onNext = () => {
-        setQuestion(newQuestion());
-        setData(question.data());
+        let newQuestion = getNewQuestion();
+        data = newQuestion.data();
+        setQuestion(newQuestion);
         setNeedsClearState(true);
     }
 
-    const [question, setQuestion] = useState(newQuestion());
-    const [data, setData] = useState(question.data());
+    const [question, setQuestion] = useState(getNewQuestion());
     const [needsClearState, setNeedsClearState] = useState(false);
+    let data = question.data();
 
     return (
         <SafeAreaView>
