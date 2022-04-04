@@ -105,6 +105,10 @@ export const createChoiceQuestionData = () => {
     return questions[Math.floor(Math.random() * questions.length)](chosenCountry);
 }
 
+export let resetChoiceQuestion = () => {
+    // Do nothing for now
+}
+
 export const ChoiceQuestion = (props) => {
 
     const [isCorrectText, setIsCorrectText] = useState("");
@@ -127,10 +131,12 @@ export const ChoiceQuestion = (props) => {
         }
     }
 
-    // Prepare the answer choices
-    console.log(props.data);
+    resetChoiceQuestion = () => {
+        setIsCorrectText("");
+        setFeedbackText("");
+    }
 
-    console.log(props.data.incorrectChoices);
+    // Prepare the answer choices
     let shuffledAnswers: string[] = [...props.data.incorrectChoices];
 
     // If there are multiple correct answers, just choose one
@@ -142,15 +148,18 @@ export const ChoiceQuestion = (props) => {
     shuffledAnswers.push(answer);
     shuffleArray(shuffledAnswers);
 
+    // Use state so that they don't get reshuffled on every render
+    const [shuffledAnswersState, setShuffledAnswersState] = useState(shuffledAnswers);
+
     return (
         <View>
             <Image source={props.data.flagURL}
                    style={{width: "50%", height: "50%"}}/>
             <Text>{props.data.questionText}</Text>
 
-            <Button title={shuffledAnswers[0]} onPress={() => {onAnswer(shuffledAnswers[0])}}/>
-            <Button title={shuffledAnswers[1]} onPress={() => {onAnswer(shuffledAnswers[1])}}/>
-            <Button title={shuffledAnswers[2]} onPress={() => {onAnswer(shuffledAnswers[2])}}/>
+            <Button title={shuffledAnswersState[0]} onPress={() => {onAnswer(shuffledAnswersState[0])}}/>
+            <Button title={shuffledAnswersState[1]} onPress={() => {onAnswer(shuffledAnswersState[1])}}/>
+            <Button title={shuffledAnswersState[2]} onPress={() => {onAnswer(shuffledAnswersState[2])}}/>
 
             <Text>{isCorrectText}</Text>
             <Text>{feedbackText}</Text>

@@ -74,6 +74,10 @@ export const createTypedQuestionData = () => {
     return questions[Math.floor(Math.random() * questions.length)](chosenCountry);
 }
 
+export let resetTypedQuestion = () => {
+    // Do nothing for now
+}
+
 export const TypedQuestion = (props) => {
 
     const [isCorrectText, setIsCorrectText] = useState("");
@@ -99,16 +103,13 @@ export const TypedQuestion = (props) => {
         setSubmitButton(<Button title="Submit" disabled/>);
     }
 
-    const answerInputRef = useRef();
     const [submitButton, setSubmitButton] = useState(<Button title="Submit" onPress={onSubmit}/>);
 
-    if (props.needsClearState) {
+    resetTypedQuestion = () => {
         setIsCorrectText("");
         setGivenAnswer("");
         setFeedbackText("");
         setSubmitButton(<Button title="Submit" onPress={onSubmit}/>);
-        answerInputRef.current.setNativeProps({ text: "" });
-        props.setNeedsClearState(false);
     }
 
     return (
@@ -116,7 +117,7 @@ export const TypedQuestion = (props) => {
             <Image source={props.data.flagURL}
                    style={{width: "50%", height: "50%"}}/>
             <Text>{props.data.questionText}</Text>
-            <TextInput onChangeText={setGivenAnswer} ref={answerInputRef}/>
+            <TextInput onChangeText={setGivenAnswer} value={givenAnswer}/>
             {submitButton}
 
             <Text>{isCorrectText}</Text>

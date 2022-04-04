@@ -8,38 +8,37 @@ import {
   Button
 } from 'react-native';
 
-import { TypedQuestion, createTypedQuestionData } from './typedQuestion';
-import { ChoiceQuestion, createChoiceQuestionData } from './choiceQuestion';
-
-/**
- * Randomly generates and renders a new question from the provided dictionary.
- */
-const getNewQuestion = () => {
-    console.log("New question requested");
-
-    const questionTypes = [{element: TypedQuestion, data: createTypedQuestionData},
-                           {element: ChoiceQuestion, data: createChoiceQuestionData}];
-
-    // Load the next question
-    return questionTypes[Math.floor(Math.random() * questionTypes.length)];
-};
+import { TypedQuestion, createTypedQuestionData, resetTypedQuestion } from './typedQuestion';
+import { ChoiceQuestion, createChoiceQuestionData, resetChoiceQuestion } from './choiceQuestion';
 
 export const CountriesScreen = ({navigation}) => {
 
     const onNext = () => {
-        let newQuestion = getNewQuestion();
-        data = newQuestion.data();
-        setQuestion(newQuestion);
-        setNeedsClearState(true);
+        setQuestion(getNewQuestion());
     }
 
+    const getNewQuestion = () => {
+        console.log("New question requested");
+
+        const typedQuestionElement = <TypedQuestion data={createTypedQuestionData()}/>
+
+        const choiceQuestionElement = <ChoiceQuestion data={createChoiceQuestionData()}/>
+
+        const questionElements = [typedQuestionElement, choiceQuestionElement]
+
+        return questionElements[Math.floor(Math.random() * questionElements.length)];
+    }
+
+    useEffect(() => {
+        resetTypedQuestion();
+        resetChoiceQuestion();
+    });
+
     const [question, setQuestion] = useState(getNewQuestion());
-    const [needsClearState, setNeedsClearState] = useState(false);
-    let data = question.data();
 
     return (
         <SafeAreaView>
-            {question.element({data: data, needsClearState: needsClearState, setNeedsClearState: setNeedsClearState})}
+            {question}
             <Button title="Report"/>
             <Button title="Next" onPress={onNext}/>
         </SafeAreaView>
