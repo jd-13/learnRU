@@ -10,6 +10,7 @@ import {
 import { FlagImage } from "./flagImage";
 
 import { Countries, Country } from './countriesDb';
+import { DefaultButton } from '../common';
 
 class TypeQuestionData {
     flagURL;
@@ -102,16 +103,16 @@ export const TypedQuestion = (props) => {
             setFeedbackText(props.data.feedbackText);
         }
 
-        setSubmitButton(<Button title="Submit" disabled/>);
+        setSubmitButton(<DefaultButton text="Submit" isDisabled={true}/>);
     }
 
-    const [submitButton, setSubmitButton] = useState(<Button title="Submit" onPress={onSubmit}/>);
+    const [submitButton, setSubmitButton] = useState(<DefaultButton text="Submit" onPress={onSubmit}/>);
 
     resetTypedQuestion = () => {
         setIsCorrectText("");
         setGivenAnswer("");
         setFeedbackText("");
-        setSubmitButton(<Button title="Submit" onPress={onSubmit}/>);
+        setSubmitButton(<DefaultButton text="Submit" onPress={onSubmit}/>);
     }
 
     return (

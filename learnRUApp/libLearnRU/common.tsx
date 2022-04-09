@@ -26,14 +26,16 @@ export const commonStyles = StyleSheet.create({
 });
 
 export const DefaultButton = (props) => {
-    const defaultColour = "blue";
 
-    if (!("colour" in props)) {
-        props.colour = defaultColour;
+    let colourToUse = "blue";
+    if (props.isDisabled) {
+        colourToUse = "grey";
+    } else if ("colour" in props) {
+        colourToUse = props.colour;
     }
 
     return (
-        <Pressable style={{...commonStyles.button, backgroundColor: props.colour}}>
+        <Pressable style={{...commonStyles.button, backgroundColor: colourToUse}} onPress={props.onPress}>
             <Text style={commonStyles.buttonText}>{props.text}</Text>
         </Pressable>
     )

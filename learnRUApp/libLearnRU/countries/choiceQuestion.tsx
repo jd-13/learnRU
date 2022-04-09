@@ -8,6 +8,8 @@ import {
 
 import { FlagImage } from "./flagImage";
 
+import { DefaultButton } from '../common';
+
 import { Countries, Country } from './countriesDb';
 
 function shuffleArray(array: any[]) {
@@ -158,9 +160,9 @@ export const ChoiceQuestion = (props) => {
             <FlagImage flagURL={props.data.flagURL} height={220}/>
             <Text>{props.data.questionText}</Text>
 
-            <Button title={shuffledAnswersState[0]} onPress={() => {onAnswer(shuffledAnswersState[0])}}/>
-            <Button title={shuffledAnswersState[1]} onPress={() => {onAnswer(shuffledAnswersState[1])}}/>
-            <Button title={shuffledAnswersState[2]} onPress={() => {onAnswer(shuffledAnswersState[2])}}/>
+            <DefaultButton text={shuffledAnswersState[0]} onPress={() => {onAnswer(shuffledAnswersState[0])}} isDisabled={isCorrectText !== ""}/>
+            <DefaultButton text={shuffledAnswersState[1]} onPress={() => {onAnswer(shuffledAnswersState[1])}} isDisabled={isCorrectText !== ""}/>
+            <DefaultButton text={shuffledAnswersState[2]} onPress={() => {onAnswer(shuffledAnswersState[2])}} isDisabled={isCorrectText !== ""}/>
 
             <Text>{isCorrectText}</Text>
             <Text>{feedbackText}</Text>

@@ -43,8 +43,8 @@ export const CountriesScreen = ({navigation}) => {
                 {question}
             </View>
             <View>
-                <DefaultButton text="Report" colour="red"/>
-                <DefaultButton text="Next" colour="black"/>
+                <DefaultButton text="Report" colour="red" isDisabled={true}/>
+                <DefaultButton text="Next" colour="black" onPress={onNext}/>
             </View>
         </SafeAreaView>
     );
