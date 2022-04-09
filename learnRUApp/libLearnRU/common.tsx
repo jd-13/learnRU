@@ -22,6 +22,15 @@ export const commonStyles = StyleSheet.create({
         fontWeight: "bold",
         letterSpacing: 0.25,
         color: "white",
+    },
+    questionText: {
+        fontSize: 20,
+        alignSelf: "center",
+        margin: 10
+    },
+    answerInput: {
+        borderBottomWidth: 1,
+        margin: 10
     }
 });
 

@@ -8,7 +8,7 @@ import {
 
 import { FlagImage } from "./flagImage";
 
-import { DefaultButton } from '../common';
+import { commonStyles, DefaultButton } from '../common';
 
 import { Countries, Country } from './countriesDb';
 
@@ -95,6 +95,8 @@ const setupNationality = (chosenCountry: Country) => {
 }
 
 export const createChoiceQuestionData = () => {
+    console.log("Creating ChoiceQuestion");
+
     // Choose a country at random
     const chosenCountry = Countries.getRandomCountry();
     console.log(`Chose country: ${chosenCountry.getCountryName()}`);
@@ -157,12 +159,14 @@ export const ChoiceQuestion = (props) => {
 
     return (
         <View>
-            <FlagImage flagURL={props.data.flagURL} height={220}/>
-            <Text>{props.data.questionText}</Text>
+            <FlagImage flagURL={props.data.flagURL} height={180}/>
+            <Text style={commonStyles.questionText}>{props.data.questionText}</Text>
 
-            <DefaultButton text={shuffledAnswersState[0]} onPress={() => {onAnswer(shuffledAnswersState[0])}} isDisabled={isCorrectText !== ""}/>
-            <DefaultButton text={shuffledAnswersState[1]} onPress={() => {onAnswer(shuffledAnswersState[1])}} isDisabled={isCorrectText !== ""}/>
-            <DefaultButton text={shuffledAnswersState[2]} onPress={() => {onAnswer(shuffledAnswersState[2])}} isDisabled={isCorrectText !== ""}/>
+            <View style={{marginTop: 15}}>
+                <DefaultButton text={shuffledAnswersState[0]} onPress={() => {onAnswer(shuffledAnswersState[0])}} isDisabled={isCorrectText !== ""}/>
+                <DefaultButton text={shuffledAnswersState[1]} onPress={() => {onAnswer(shuffledAnswersState[1])}} isDisabled={isCorrectText !== ""}/>
+                <DefaultButton text={shuffledAnswersState[2]} onPress={() => {onAnswer(shuffledAnswersState[2])}} isDisabled={isCorrectText !== ""}/>
+            </View>
 
             <Text>{isCorrectText}</Text>
             <Text>{feedbackText}</Text>

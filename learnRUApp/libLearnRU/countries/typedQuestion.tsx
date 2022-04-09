@@ -10,7 +10,7 @@ import {
 import { FlagImage } from "./flagImage";
 
 import { Countries, Country } from './countriesDb';
-import { DefaultButton } from '../common';
+import { commonStyles, DefaultButton } from '../common';
 
 class TypeQuestionData {
     flagURL;
@@ -117,9 +117,9 @@ export const TypedQuestion = (props) => {
 
     return (
         <View>
-            <FlagImage flagURL={props.data.flagURL} height={220}/>
-            <Text>{props.data.questionText}</Text>
-            <TextInput onChangeText={setGivenAnswer} value={givenAnswer}/>
+            <FlagImage flagURL={props.data.flagURL} height={180}/>
+            <Text style={commonStyles.questionText}>{props.data.questionText}</Text>
+            <TextInput style={commonStyles.answerInput} onChangeText={setGivenAnswer} value={givenAnswer} autoFocus={true} onSubmitEditing={onSubmit}/>
             {submitButton}
 
             <Text>{isCorrectText}</Text>
