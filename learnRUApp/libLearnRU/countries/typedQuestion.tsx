@@ -116,7 +116,7 @@ export const TypedQuestion = (props) => {
 
     return (
         <View>
-            <FlagImage flagURL={props.data.flagURL} height={250}/>
+            <FlagImage flagURL={props.data.flagURL} height={220}/>
             <Text>{props.data.questionText}</Text>
             <TextInput onChangeText={setGivenAnswer} value={givenAnswer}/>
             {submitButton}

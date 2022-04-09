@@ -155,7 +155,7 @@ export const ChoiceQuestion = (props) => {
 
     return (
         <View>
-            <FlagImage flagURL={props.data.flagURL} height={250}/>
+            <FlagImage flagURL={props.data.flagURL} height={220}/>
             <Text>{props.data.questionText}</Text>
 
             <Button title={shuffledAnswersState[0]} onPress={() => {onAnswer(shuffledAnswersState[0])}}/>
