@@ -7,6 +7,8 @@ import {
   Button,
 } from 'react-native';
 
+import { FlagImage } from "./flagImage";
+
 import { Countries, Country } from './countriesDb';
 
 class TypeQuestionData {
@@ -114,8 +116,7 @@ export const TypedQuestion = (props) => {
 
     return (
         <View>
-            <Image source={props.data.flagURL}
-                   style={{width: "50%", height: "50%"}}/>
+            <FlagImage flagURL={props.data.flagURL} height={250}/>
             <Text>{props.data.questionText}</Text>
             <TextInput onChangeText={setGivenAnswer} value={givenAnswer}/>
             {submitButton}
