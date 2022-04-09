@@ -137,25 +137,30 @@ export const ChoiceQuestion = (props) => {
         }
     }
 
+    const createShuffledAnswers = (incorrectChoices: string[]) => {
+        // Prepare the answer choices
+        let shuffledAnswers: string[] = [...incorrectChoices];
+
+        // If there are multiple correct answers, just choose one
+        let answer = props.data.answers;
+        if (typeof answer === "object") {
+            answer = answer[Math.floor(Math.random() * answer.length)];
+        }
+
+        shuffledAnswers.push(answer);
+        shuffleArray(shuffledAnswers);
+
+        return shuffledAnswers;
+    }
+
     resetChoiceQuestion = () => {
         setIsCorrectText("");
         setFeedbackText("");
+        setShuffledAnswersState(createShuffledAnswers(props.data.incorrectChoices));
     }
-
-    // Prepare the answer choices
-    let shuffledAnswers: string[] = [...props.data.incorrectChoices];
-
-    // If there are multiple correct answers, just choose one
-    let answer = props.data.answers;
-    if (typeof answer === "object") {
-        answer = answer[Math.floor(Math.random() * answer.length)];
-    }
-
-    shuffledAnswers.push(answer);
-    shuffleArray(shuffledAnswers);
 
     // Use state so that they don't get reshuffled on every render
-    const [shuffledAnswersState, setShuffledAnswersState] = useState(shuffledAnswers);
+    const [shuffledAnswersState, setShuffledAnswersState] = useState(createShuffledAnswers(props.data.incorrectChoices));
 
     return (
         <View>
