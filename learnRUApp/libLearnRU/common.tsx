@@ -1,7 +1,9 @@
 import React, { useState, useRef } from 'react';
 import {
   Image,
-  StyleSheet
+  Pressable,
+  StyleSheet,
+  Text
 } from 'react-native';
 
 export const commonStyles = StyleSheet.create({
@@ -22,3 +24,17 @@ export const commonStyles = StyleSheet.create({
         color: "white",
     }
 });
+
+export const DefaultButton = (props) => {
+    const defaultColour = "blue";
+
+    if (!("colour" in props)) {
+        props.colour = defaultColour;
+    }
+
+    return (
+        <Pressable style={{...commonStyles.button, backgroundColor: props.colour}}>
+            <Text style={commonStyles.buttonText}>{props.text}</Text>
+        </Pressable>
+    )
+};

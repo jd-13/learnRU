@@ -7,7 +7,7 @@ import {
     Text
 } from 'react-native';
 
-import { commonStyles } from '../common';
+import { DefaultButton } from '../common';
 
 import { TypedQuestion, createTypedQuestionData, resetTypedQuestion } from './typedQuestion';
 import { ChoiceQuestion, createChoiceQuestionData, resetChoiceQuestion } from './choiceQuestion';
@@ -43,12 +43,8 @@ export const CountriesScreen = ({navigation}) => {
                 {question}
             </View>
             <View>
-                <Pressable style={{...commonStyles.button, backgroundColor: "red"}}>
-                    <Text style={commonStyles.buttonText}>Report</Text>
-                </Pressable>
-                <Pressable style={{...commonStyles.button, backgroundColor: "black"}} onPress={onNext}>
-                    <Text style={commonStyles.buttonText}>Next</Text>
-                </Pressable>
+                <DefaultButton text="Report" colour="red"/>
+                <DefaultButton text="Next" colour="black"/>
             </View>
         </SafeAreaView>
     );
