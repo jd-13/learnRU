@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Image } from 'react-native';
+import { Image, View } from 'react-native';
 
 /**
  * Given a height, displays a flag with the correct width to maintain the original aspect ratio.
@@ -13,6 +13,8 @@ export const FlagImage = (props) => {
     });
 
     return (
-        <Image source={props.flagURL} style={{width: width, height: props.height}}/>
+        <View style={{alignSelf: "center", margin: 20}}>
+            <Image source={props.flagURL} style={{width: width, height: props.height}}/>
+        </View>
     );
 };
