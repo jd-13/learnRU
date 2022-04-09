@@ -38,7 +38,7 @@ export const CountriesScreen = ({navigation}) => {
     const [question, setQuestion] = useState(getNewQuestion());
 
     return (
-        <SafeAreaView style={{flex: 1}}>
+        <SafeAreaView style={{flex: 1, margin: 10}}>
             <View style={{flex: 1}}>
                 {question}
             </View>
