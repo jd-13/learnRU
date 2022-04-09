@@ -168,8 +168,8 @@ export const ChoiceQuestion = (props) => {
                 <DefaultButton text={shuffledAnswersState[2]} onPress={() => {onAnswer(shuffledAnswersState[2])}} isDisabled={isCorrectText !== ""}/>
             </View>
 
-            <Text>{isCorrectText}</Text>
-            <Text>{feedbackText}</Text>
+            <Text style={commonStyles.feedbackLine1}>{isCorrectText}</Text>
+            <Text style={commonStyles.feedbackLine2}>{feedbackText}</Text>
         </View>
     );
 }

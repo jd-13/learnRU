@@ -31,6 +31,14 @@ export const commonStyles = StyleSheet.create({
     answerInput: {
         borderBottomWidth: 1,
         margin: 10
+    },
+    feedbackLine1: {
+        fontSize: 20,
+        alignSelf: "center",
+        margin: 10
+    },
+    feedbackLine2: {
+        alignSelf: "center"
     }
 });
 

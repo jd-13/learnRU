@@ -122,8 +122,8 @@ export const TypedQuestion = (props) => {
             <TextInput style={commonStyles.answerInput} onChangeText={setGivenAnswer} value={givenAnswer} autoFocus={true} onSubmitEditing={onSubmit}/>
             {submitButton}
 
-            <Text>{isCorrectText}</Text>
-            <Text>{feedbackText}</Text>
+            <Text style={commonStyles.feedbackLine1}>{isCorrectText}</Text>
+            <Text style={commonStyles.feedbackLine2}>{feedbackText}</Text>
         </View>
     );
 }
