@@ -25,15 +25,15 @@ const Configuration = (props) => {
 
     return (
         <View>
-            <View style={{flexDirection: "row"}}>
-                <ToggleButton isOn={props.selectedMaxNumber === 10} text="0-10" onPress={() => { props.setSelectedMaxNumber(10) }}/>
-                <ToggleButton isOn={props.selectedMaxNumber === 20} text="0-20" onPress={() => { props.setSelectedMaxNumber(20) }}/>
-                <ToggleButton isOn={props.selectedMaxNumber === 100} text="0-100" onPress={() => { props.setSelectedMaxNumber(100) }}/>
-                <ToggleButton isOn={props.selectedMaxNumber === 1000} text="0-1000" onPress={() => { props.setSelectedMaxNumber(1000) }}/>
+            <View style={{flexDirection: "row", width: "100%"}}>
+                <ToggleButton style={{flex: 1}} isOn={props.selectedMaxNumber === 10} text="<10" onPress={() => { props.setSelectedMaxNumber(10) }}/>
+                <ToggleButton style={{flex: 1}} isOn={props.selectedMaxNumber === 20} text="<20" onPress={() => { props.setSelectedMaxNumber(20) }}/>
+                <ToggleButton style={{flex: 1}} isOn={props.selectedMaxNumber === 100} text="<100" onPress={() => { props.setSelectedMaxNumber(100) }}/>
+                <ToggleButton style={{flex: 1}} isOn={props.selectedMaxNumber === 1000} text="<1000" onPress={() => { props.setSelectedMaxNumber(1000) }}/>
             </View>
             <View style={{flexDirection: "row"}}>
-                <ToggleButton isOn={props.enabledNumbers.cardinal} text="Cardinal" onPress={() => { setCardinalEnabled(!props.enabledNumbers.cardinal) }}/>
-                <ToggleButton isOn={props.enabledNumbers.ordinal} text="Ordinal" onPress={() => { setOrdinalEnabled(!props.enabledNumbers.ordinal) }}/>
+                <ToggleButton style={{flex: 1}} isOn={props.enabledNumbers.cardinal} text="Cardinal" onPress={() => { setCardinalEnabled(!props.enabledNumbers.cardinal) }}/>
+                <ToggleButton style={{flex: 1}} isOn={props.enabledNumbers.ordinal} text="Ordinal" onPress={() => { setOrdinalEnabled(!props.enabledNumbers.ordinal) }}/>
             </View>
         </View>
     );

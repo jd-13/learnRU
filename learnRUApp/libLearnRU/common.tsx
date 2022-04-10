@@ -19,7 +19,7 @@ export const commonStyles = StyleSheet.create({
         alignItems: "center",
         justifyContent: "center",
         paddingVertical: 12,
-        paddingHorizontal: 32,
+        paddingHorizontal: 12,
         borderRadius: 4,
         margin: 5
     },
@@ -83,14 +83,19 @@ export const ToggleButton = (props) => {
         borderWidth: 1,
         borderRadius: 5
     };
+
+    if ("style" in props) {
+        pressableStyle = {...pressableStyle, ...props.style};
+    }
+
     let textColour = "";
+
     if (props.isOn) {
         pressableStyle.backgroundColor = colourToUse;
         textColour = "white";
     } else {
         textColour = colourToUse;
     }
-
 
     return (
         <Pressable style={{...commonStyles.button, ...pressableStyle}} onPress={props.onPress}>
