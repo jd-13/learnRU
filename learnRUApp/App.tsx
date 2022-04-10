@@ -15,6 +15,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import { CountriesScreen } from './libLearnRU/countries/countries';
+import { NumbersScreen } from './libLearnRU/numbers/numbers';
 
 const COLOURS = {
     pastelRed: "rgb(252, 126, 126)",
@@ -77,12 +78,6 @@ const HomeScreen = ({navigation}) => {
                 <LessonButtonsView nav={navigation}></LessonButtonsView>
             </ScrollView>
         </SafeAreaView>
-    );
-}
-
-const NumbersScreen = ({navigation}) => {
-    return (
-        <View></View>
     );
 }
 

@@ -1,6 +1,7 @@
 import React, { createElement } from 'react';
 
 const COUNTRIES = [
+    // TODO find an Australian flag jpg I can use (this svg breaks during conversion)
     // {
     //     "flag": "https://upload.wikimedia.org/wikipedia/commons/8/88/Flag_of_Australia_%28converted%29.svg",
     //     "country": "Австралия",
@@ -221,7 +222,7 @@ export class Country {
     getCountryName() { return this._json["country"]; }
     getGenitive() { return this._json["genitive"]; }
     getLanguages() { return this._json["languages"]; }
-    getNationality(gender) { return this._json["nationality"][gender]; }
+    getNationality(gender: string) { return this._json["nationality"][gender]; }
 
     getRandomLanguage() {
         return this._json["languages"][Math.floor(Math.random() * this._json["languages"].length)]

@@ -1,25 +1,14 @@
 import React, { useState } from 'react';
 import {
-  Text,
-  View,
-  Image,
-  Button,
+    Text,
+    View
 } from 'react-native';
 
 import { FlagImage } from "./flagImage";
 
-import { commonStyles, DefaultButton } from '../common';
+import { commonStyles, DefaultButton, shuffleArray } from '../common';
 
 import { Countries, Country } from './countriesDb';
-
-function shuffleArray(array: any[]) {
-    for (let i = array.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        const temp = array[i];
-        array[i] = array[j];
-        array[j] = temp;
-    }
-}
 
 class ChoiceQuestionData {
     flagURL;
@@ -39,7 +28,7 @@ class ChoiceQuestionData {
         this.incorrectChoices = incorrectChoices;
         this.feedbackText = feedbackText;
     }
-}
+};
 
 const setupCountry = (chosenCountry: Country) => {
     // TODO: there may be duplicate incorrect choices
@@ -49,7 +38,7 @@ const setupCountry = (chosenCountry: Country) => {
                                   [Countries.getRandomCountry().getCountryName(),
                                    Countries.getRandomCountry().getCountryName()],
                                   `Это ${chosenCountry.getCountryName()}`);
-}
+};
 
 
 const setupGenitive = (chosenCountry: Country) => {
@@ -60,7 +49,7 @@ const setupGenitive = (chosenCountry: Country) => {
                                   [Countries.getRandomCountry().getGenitive(),
                                    Countries.getRandomCountry().getGenitive()],
                                   `Они из ${chosenCountry.getGenitive()}`);
-}
+};
 
 const setupLanguage = (chosenCountry: Country) => {
     // TODO: there may be duplicate incorrect choices
@@ -70,7 +59,7 @@ const setupLanguage = (chosenCountry: Country) => {
                                   [Countries.getRandomCountry().getRandomLanguage(),
                                    Countries.getRandomCountry().getRandomLanguage()],
                                   `Они говорят по-${chosenCountry.getLanguages()}`);
-}
+};
 
 const setupNationality = (chosenCountry: Country) => {
     // Choose a random gender
@@ -84,7 +73,7 @@ const setupNationality = (chosenCountry: Country) => {
     }
 
     // Store the answer and remove it from the dictionary
-    const answers = [nationalities[chosenGender]];
+    const answers: string[] = [nationalities[chosenGender]];
     delete nationalities[chosenGender];
 
     return new ChoiceQuestionData(chosenCountry.getFlagURL(),
@@ -92,7 +81,7 @@ const setupNationality = (chosenCountry: Country) => {
                                   answers,
                                   Object.values(nationalities),
                                   `${chosenPronoun} ${chosenCountry.getNationality(chosenGender)}`);
-}
+};
 
 export const createChoiceQuestionData = () => {
     console.log("Creating ChoiceQuestion");
@@ -109,11 +98,11 @@ export const createChoiceQuestionData = () => {
     ];
 
     return questions[Math.floor(Math.random() * questions.length)](chosenCountry);
-}
+};
 
 export let resetChoiceQuestion = () => {
     // Do nothing for now
-}
+};
 
 export const ChoiceQuestion = (props) => {
 
@@ -177,4 +166,4 @@ export const ChoiceQuestion = (props) => {
             <Text style={commonStyles.feedbackLine2}>{feedbackText}</Text>
         </View>
     );
-}
+};

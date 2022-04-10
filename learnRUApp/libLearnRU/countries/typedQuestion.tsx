@@ -2,9 +2,7 @@ import React, { useState, useRef } from 'react';
 import {
   Text,
   View,
-  Image,
   TextInput,
-  Button,
 } from 'react-native';
 
 import { FlagImage } from "./flagImage";

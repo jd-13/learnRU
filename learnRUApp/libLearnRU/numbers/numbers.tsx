@@ -10,7 +10,13 @@ import { DefaultButton } from '../common';
 import { TypedQuestion, createTypedQuestionData, resetTypedQuestion } from './typedQuestion';
 import { ChoiceQuestion, createChoiceQuestionData, resetChoiceQuestion } from './choiceQuestion';
 
-export const CountriesScreen = ({navigation}) => {
+const availableRanges = ["10", "20", "100", "1000"];
+let enabledNumbers = { "cardinal": true, "ordinal": true };
+
+export const NumbersScreen = ({navigation}) => {
+
+    const [selectedMaxNumber, setSelectedMaxNumber] = useState(1000);
+    const [enabledNumbers, setEnabledNumbers] = useState({ "cardinal": true, "ordinal": true });
 
     const onNext = () => {
         setQuestion(getNewQuestion());
@@ -19,9 +25,9 @@ export const CountriesScreen = ({navigation}) => {
     const getNewQuestion = () => {
         console.log("New question requested");
 
-        const typedQuestionElement = <TypedQuestion data={createTypedQuestionData()}/>
+        const typedQuestionElement = <TypedQuestion data={createTypedQuestionData(selectedMaxNumber, enabledNumbers)}/>
 
-        const choiceQuestionElement = <ChoiceQuestion data={createChoiceQuestionData()}/>
+        const choiceQuestionElement = <ChoiceQuestion data={createChoiceQuestionData(selectedMaxNumber, enabledNumbers)}/>
 
         const questionElements = [typedQuestionElement, choiceQuestionElement]
 
@@ -46,4 +52,4 @@ export const CountriesScreen = ({navigation}) => {
             </View>
         </SafeAreaView>
     );
-};
+}
