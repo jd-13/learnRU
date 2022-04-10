@@ -21,7 +21,6 @@ export const commonStyles = StyleSheet.create({
         paddingVertical: 12,
         paddingHorizontal: 32,
         borderRadius: 4,
-        elevation: 3,
         margin: 5
     },
     buttonText: {
@@ -29,7 +28,6 @@ export const commonStyles = StyleSheet.create({
         lineHeight: 21,
         fontWeight: "bold",
         letterSpacing: 0.25,
-        color: "white",
     },
     questionText: {
         fontSize: 20,
@@ -61,7 +59,38 @@ export const DefaultButton = (props) => {
 
     return (
         <Pressable style={{...commonStyles.button, backgroundColor: colourToUse}} onPress={props.onPress}>
-            <Text style={commonStyles.buttonText}>{props.text}</Text>
+            <Text style={{...commonStyles.buttonText, color: "white"}}>{props.text}</Text>
+        </Pressable>
+    )
+};
+
+export const ToggleButton = (props) => {
+
+    let colourToUse = "blue";
+    if (props.isDisabled) {
+        colourToUse = "grey";
+    } else if ("colour" in props) {
+        colourToUse = props.colour;
+    }
+
+    let pressableStyle = {
+        borderColor: colourToUse,
+        borderStyle: "solid",
+        borderWidth: 1,
+        borderRadius: 5
+    };
+    let textColour = "";
+    if (props.isOn) {
+        pressableStyle.backgroundColor = colourToUse;
+        textColour = "white";
+    } else {
+        textColour = colourToUse;
+    }
+
+
+    return (
+        <Pressable style={{...commonStyles.button, ...pressableStyle}} onPress={props.onPress}>
+            <Text style={{...commonStyles.buttonText, color: textColour}}>{props.text}</Text>
         </Pressable>
     )
 };

@@ -23,7 +23,7 @@ class TypedQuestionData {
     }
 };
 
-export const createTypedQuestionData = (selectedMaxNumber: number, enabledNumbers: string[]) => {
+export const createTypedQuestionData = (selectedMaxNumber: number, enabledNumbers: object) => {
     const [chosenNumber, translatedString] = getRandomNumber(selectedMaxNumber, enabledNumbers);
     console.log(`Chose number: ${chosenNumber}`);
 

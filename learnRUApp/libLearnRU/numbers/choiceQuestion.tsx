@@ -26,7 +26,7 @@ class ChoiceQuestionData {
     }
 };
 
-export const createChoiceQuestionData = (selectedMaxNumber: number, enabledNumbers: number[]) => {
+export const createChoiceQuestionData = (selectedMaxNumber: number, enabledNumbers: object) => {
         // Choose a number at random
         const [chosenNumber, translatedString] = getRandomNumber(selectedMaxNumber, enabledNumbers)
         console.log(`Chose number: ${chosenNumber} ${translatedString}`);
