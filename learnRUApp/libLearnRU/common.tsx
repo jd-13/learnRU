@@ -37,7 +37,8 @@ export const commonStyles = StyleSheet.create({
     },
     answerInput: {
         borderBottomWidth: 1,
-        margin: 10
+        margin: 10,
+        color: "black"
     },
     feedbackLine1: {
         fontSize: 20,
