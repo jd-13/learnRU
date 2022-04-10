@@ -32,7 +32,8 @@ export const commonStyles = StyleSheet.create({
     questionText: {
         fontSize: 20,
         alignSelf: "center",
-        margin: 10
+        margin: 10,
+        color: "black"
     },
     answerInput: {
         borderBottomWidth: 1,
@@ -41,10 +42,12 @@ export const commonStyles = StyleSheet.create({
     feedbackLine1: {
         fontSize: 20,
         alignSelf: "center",
-        margin: 10
+        margin: 10,
+        color: "black"
     },
     feedbackLine2: {
-        alignSelf: "center"
+        alignSelf: "center",
+        color: "black"
     }
 });
 

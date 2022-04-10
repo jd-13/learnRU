@@ -65,16 +65,10 @@ const LessonButtonsView = (props) => {
 };
 
 const HomeScreen = ({navigation}) => {
-    const isDarkMode = useColorScheme() === 'dark';
-
-    const backgroundStyle = {
-       backgroundColor: isDarkMode ? "black" : "white",
-    };
-
     return (
-        <SafeAreaView style={backgroundStyle}>
-            <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'}/>
-            <ScrollView contentInsetAdjustmentBehavior="automatic" style={backgroundStyle}>
+        <SafeAreaView style={{backgroundColor: "white"}}>
+            <StatusBar barStyle={"dark-content"}/>
+            <ScrollView contentInsetAdjustmentBehavior="automatic" style={{backgroundColor: "white"}}>
                 <LessonButtonsView nav={navigation}></LessonButtonsView>
             </ScrollView>
         </SafeAreaView>
