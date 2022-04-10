@@ -10,10 +10,7 @@ import { DefaultButton, ToggleButton } from '../common';
 import { TypedQuestion, createTypedQuestionData, resetTypedQuestion } from './typedQuestion';
 import { ChoiceQuestion, createChoiceQuestionData, resetChoiceQuestion } from './choiceQuestion';
 
-const availableRanges = ["10", "20", "100", "1000"];
-
 const Configuration = (props) => {
-
     const setCardinalEnabled = (isEnabled: boolean) => {
         if (isEnabled || props.enabledNumbers.ordinal) {
             props.setEnabledNumbers({"cardinal": isEnabled, "ordinal": props.enabledNumbers.ordinal});
@@ -25,7 +22,6 @@ const Configuration = (props) => {
             props.setEnabledNumbers({"cardinal": props.enabledNumbers.cardinal, "ordinal": isEnabled});
         }
     };
-
 
     return (
         <View>
@@ -45,18 +41,18 @@ const Configuration = (props) => {
 
 export const NumbersScreen = ({navigation}) => {
     const [selectedMaxNumber, setSelectedMaxNumber] = useState(1000);
-    const [enabledNumbers, setEnabledNumbers] = useState({ "cardinal": true, "ordinal": true });
+    const [selectedNumberTypes, setSelectedNumberTypes] = useState({ "cardinal": true, "ordinal": true });
 
     const onNext = () => {
-        setQuestion(getNewQuestion());
+        setQuestion(getNewQuestion(selectedMaxNumber, selectedNumberTypes));
     };
 
-    const getNewQuestion = () => {
+    const getNewQuestion = (maxNumber: number, numberTypes: object) => {
         console.log("New question requested");
 
-        const typedQuestionElement = <TypedQuestion data={createTypedQuestionData(selectedMaxNumber, enabledNumbers)}/>
+        const typedQuestionElement = <TypedQuestion data={createTypedQuestionData(maxNumber, numberTypes)}/>
 
-        const choiceQuestionElement = <ChoiceQuestion data={createChoiceQuestionData(selectedMaxNumber, enabledNumbers)}/>
+        const choiceQuestionElement = <ChoiceQuestion data={createChoiceQuestionData(maxNumber, numberTypes)}/>
 
         const questionElements = [typedQuestionElement, choiceQuestionElement]
 
@@ -68,7 +64,17 @@ export const NumbersScreen = ({navigation}) => {
         resetChoiceQuestion();
     });
 
-    const [question, setQuestion] = useState(getNewQuestion());
+    const onSetSelectedMaxNumber = (maxNumber: number) => {
+        setSelectedMaxNumber(maxNumber);
+        setQuestion(getNewQuestion(maxNumber, selectedNumberTypes));
+    };
+
+    const onSetSelectedNumberTypes = (numberTypes: object) => {
+        setSelectedNumberTypes(numberTypes);
+        setQuestion(getNewQuestion(selectedMaxNumber, numberTypes));
+    };
+
+    const [question, setQuestion] = useState(getNewQuestion(selectedMaxNumber, selectedNumberTypes));
 
     return (
         <SafeAreaView style={{flex: 1, margin: 10}}>
@@ -76,9 +82,9 @@ export const NumbersScreen = ({navigation}) => {
                 {question}
             </View>
             <Configuration selectedMaxNumber={selectedMaxNumber}
-                           setSelectedMaxNumber={setSelectedMaxNumber}
-                           enabledNumbers={enabledNumbers}
-                           setEnabledNumbers={setEnabledNumbers}/>
+                           setSelectedMaxNumber={onSetSelectedMaxNumber}
+                           enabledNumbers={selectedNumberTypes}
+                           setEnabledNumbers={onSetSelectedNumberTypes}/>
             <View>
                 <DefaultButton text="Report" colour="red" isDisabled={true}/>
                 <DefaultButton text="Next" colour="black" onPress={onNext}/>
