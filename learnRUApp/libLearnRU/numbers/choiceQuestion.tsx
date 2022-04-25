@@ -7,7 +7,7 @@ import {
 
 import { getRandomNumber } from './numbersDb';
 
-import { commonStyles, DefaultButton, shuffleArray } from '../common';
+import { Colours, commonStyles, DefaultButton, shuffleArray } from '../common';
 
 class ChoiceQuestionData {
     questionText: string;
@@ -89,9 +89,9 @@ export const ChoiceQuestion = (props) => {
             <Text style={commonStyles.questionText}>{props.data.questionText}</Text>
 
             <View style={{marginTop: 15}}>
-                <DefaultButton text={shuffledAnswersState[0]} onPress={() => {onAnswer(shuffledAnswersState[0])}} isDisabled={isCorrectText !== ""}/>
-                <DefaultButton text={shuffledAnswersState[1]} onPress={() => {onAnswer(shuffledAnswersState[1])}} isDisabled={isCorrectText !== ""}/>
-                <DefaultButton text={shuffledAnswersState[2]} onPress={() => {onAnswer(shuffledAnswersState[2])}} isDisabled={isCorrectText !== ""}/>
+                <DefaultButton colour={Colours.answerButton} text={shuffledAnswersState[0]} onPress={() => {onAnswer(shuffledAnswersState[0])}} isDisabled={isCorrectText !== ""}/>
+                <DefaultButton colour={Colours.answerButton} text={shuffledAnswersState[1]} onPress={() => {onAnswer(shuffledAnswersState[1])}} isDisabled={isCorrectText !== ""}/>
+                <DefaultButton colour={Colours.answerButton} text={shuffledAnswersState[2]} onPress={() => {onAnswer(shuffledAnswersState[2])}} isDisabled={isCorrectText !== ""}/>
             </View>
 
             <Text style={commonStyles.feedbackLine1}>{isCorrectText}</Text>

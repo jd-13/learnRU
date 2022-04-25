@@ -5,7 +5,7 @@ import {
     View
 } from 'react-native';
 
-import { DefaultButton } from '../common';
+import { DefaultButton, Colours } from '../common';
 
 import { TypedQuestion, createTypedQuestionData, resetTypedQuestion } from './typedQuestion';
 import { ChoiceQuestion, createChoiceQuestionData, resetChoiceQuestion } from './choiceQuestion';
@@ -42,7 +42,7 @@ export const CountriesScreen = ({navigation}) => {
             </View>
             <View>
                 <DefaultButton text="Report" colour="red" isDisabled={true}/>
-                <DefaultButton text="Next" colour="black" onPress={onNext}/>
+                <DefaultButton text="Next" colour={Colours.nextButton} onPress={onNext}/>
             </View>
         </SafeAreaView>
     );

@@ -5,7 +5,7 @@ import {
     View
 } from 'react-native';
 
-import { DefaultButton, ToggleButton } from '../common';
+import { Colours, DefaultButton, ToggleButton } from '../common';
 
 import { TypedQuestion, createTypedQuestionData, resetTypedQuestion } from './typedQuestion';
 import { ChoiceQuestion, createChoiceQuestionData, resetChoiceQuestion } from './choiceQuestion';
@@ -26,14 +26,14 @@ const Configuration = (props) => {
     return (
         <View>
             <View style={{flexDirection: "row", width: "100%"}}>
-                <ToggleButton style={{flex: 1}} isOn={props.selectedMaxNumber === 10} text="<10" onPress={() => { props.setSelectedMaxNumber(10) }}/>
-                <ToggleButton style={{flex: 1}} isOn={props.selectedMaxNumber === 20} text="<20" onPress={() => { props.setSelectedMaxNumber(20) }}/>
-                <ToggleButton style={{flex: 1}} isOn={props.selectedMaxNumber === 100} text="<100" onPress={() => { props.setSelectedMaxNumber(100) }}/>
-                <ToggleButton style={{flex: 1}} isOn={props.selectedMaxNumber === 1000} text="<1000" onPress={() => { props.setSelectedMaxNumber(1000) }}/>
+                <ToggleButton style={{flex: 1}} colour={Colours.optionsButton} isOn={props.selectedMaxNumber === 10} text="<10" onPress={() => { props.setSelectedMaxNumber(10) }}/>
+                <ToggleButton style={{flex: 1}} colour={Colours.optionsButton} isOn={props.selectedMaxNumber === 20} text="<20" onPress={() => { props.setSelectedMaxNumber(20) }}/>
+                <ToggleButton style={{flex: 1}} colour={Colours.optionsButton} isOn={props.selectedMaxNumber === 100} text="<100" onPress={() => { props.setSelectedMaxNumber(100) }}/>
+                <ToggleButton style={{flex: 1}} colour={Colours.optionsButton} isOn={props.selectedMaxNumber === 1000} text="<1000" onPress={() => { props.setSelectedMaxNumber(1000) }}/>
             </View>
             <View style={{flexDirection: "row"}}>
-                <ToggleButton style={{flex: 1}} isOn={props.enabledNumbers.cardinal} text="Cardinal" onPress={() => { setCardinalEnabled(!props.enabledNumbers.cardinal) }}/>
-                <ToggleButton style={{flex: 1}} isOn={props.enabledNumbers.ordinal} text="Ordinal" onPress={() => { setOrdinalEnabled(!props.enabledNumbers.ordinal) }}/>
+                <ToggleButton style={{flex: 1}} colour={Colours.optionsButton} isOn={props.enabledNumbers.cardinal} text="Cardinal" onPress={() => { setCardinalEnabled(!props.enabledNumbers.cardinal) }}/>
+                <ToggleButton style={{flex: 1}} colour={Colours.optionsButton} isOn={props.enabledNumbers.ordinal} text="Ordinal" onPress={() => { setOrdinalEnabled(!props.enabledNumbers.ordinal) }}/>
             </View>
         </View>
     );
@@ -87,7 +87,7 @@ export const NumbersScreen = ({navigation}) => {
                            setEnabledNumbers={onSetSelectedNumberTypes}/>
             <View>
                 <DefaultButton text="Report" colour="red" isDisabled={true}/>
-                <DefaultButton text="Next" colour="black" onPress={onNext}/>
+                <DefaultButton colour={Colours.nextButton} text="Next" onPress={onNext}/>
             </View>
         </SafeAreaView>
     );

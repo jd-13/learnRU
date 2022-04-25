@@ -52,6 +52,13 @@ export const commonStyles = StyleSheet.create({
     }
 });
 
+export const Colours = {
+    answerButton: "#fc8ab4",
+    submitButton: "#fc8ab4",
+    nextButton: "#8ab4fc",
+    optionsButton: "#fcba8a"
+};
+
 export const DefaultButton = (props) => {
 
     let colourToUse = "blue";

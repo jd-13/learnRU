@@ -7,7 +7,7 @@ import {
 
 import { getRandomNumber } from './numbersDb';
 
-import { commonStyles, DefaultButton } from '../common';
+import { Colours, commonStyles, DefaultButton } from '../common';
 
 class TypedQuestionData {
     questionText: string;
@@ -50,16 +50,16 @@ export const TypedQuestion = (props) => {
             setFeedbackText(props.data.feedbackText);
         }
 
-        setSubmitButton(<DefaultButton text="Submit" isDisabled={true}/>);
+        setSubmitButton(<DefaultButton colour={Colours.submitButton} text="Submit" isDisabled={true}/>);
     };
 
-    const [submitButton, setSubmitButton] = useState(<DefaultButton text="Submit" onPress={onSubmit}/>);
+    const [submitButton, setSubmitButton] = useState(<DefaultButton colour={Colours.submitButton} text="Submit" onPress={onSubmit}/>);
 
     resetTypedQuestion = () => {
         setIsCorrectText("");
         setGivenAnswer("");
         setFeedbackText("");
-        setSubmitButton(<DefaultButton text="Submit" onPress={onSubmit}/>);
+        setSubmitButton(<DefaultButton colour={Colours.submitButton} text="Submit" onPress={onSubmit}/>);
     };
 
     return (
