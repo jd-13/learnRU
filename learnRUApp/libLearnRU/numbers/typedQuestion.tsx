@@ -49,24 +49,18 @@ export const TypedQuestion = (props) => {
             setIsCorrectText("Oops!");
             setFeedbackText(props.data.feedbackText);
         }
-
-        setSubmitButton(<DefaultButton colour={Colours.submitButton} text="Submit" isDisabled={true}/>);
     };
-
-    const [submitButton, setSubmitButton] = useState(<DefaultButton colour={Colours.submitButton} text="Submit" onPress={onSubmit}/>);
 
     resetTypedQuestion = () => {
         setIsCorrectText("");
         setGivenAnswer("");
         setFeedbackText("");
-        setSubmitButton(<DefaultButton colour={Colours.submitButton} text="Submit" onPress={onSubmit}/>);
     };
 
     return (
         <View>
             <Text style={commonStyles.questionText}>{props.data.questionText}</Text>
             <TextInput style={commonStyles.answerInput} onChangeText={setGivenAnswer} value={givenAnswer} autoFocus={true} onSubmitEditing={onSubmit}/>
-            {submitButton}
 
             <Text style={commonStyles.feedbackLine1}>{isCorrectText}</Text>
             <Text style={commonStyles.feedbackLine2}>{feedbackText}</Text>
