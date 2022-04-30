@@ -16,11 +16,13 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import { CountriesScreen } from './libLearnRU/countries/countries';
 import { NumbersScreen } from './libLearnRU/numbers/numbers';
+import { NounCasesScreen } from './libLearnRU/nouncases/nouncases';
 
 const COLOURS = {
     pastelRed: "rgb(252, 126, 126)",
     pastelBlue: "rgb(126, 214, 252)",
-    pastelYellow: "rgb(252, 229, 116)"
+    pastelYellow: "rgb(252, 229, 116)",
+    pastelGreen: "rgb(178, 252, 126)"
 }
 
 const LessonButton = (props) => {
@@ -56,6 +58,10 @@ const LessonButtonsView = (props) => {
             <View style={{display: "flex",
                         flexDirection: "row"}}>
                 <LessonButton
+                    title="Noun Cases"
+                    colour={COLOURS.pastelGreen}
+                    onPress={() => {props.nav.navigate("Noun Cases")}}/>
+                <LessonButton
                     title="Where"
                     colour={COLOURS.pastelYellow}
                     onPress={() => {props.nav.navigate("Where")}}/>
@@ -84,6 +90,7 @@ const App = () => {
                 <Stack.Screen name="Home" component={HomeScreen} options={{title: "learnRU"}}/>
                 <Stack.Screen name="Numbers" component={NumbersScreen} options={{title: "Numbers"}}/>
                 <Stack.Screen name="Countries" component={CountriesScreen} options={{title: "Countries"}}/>
+                <Stack.Screen name="Noun Cases" component={NounCasesScreen} options={{title: "Noun Cases"}}/>
                 <Stack.Screen name="Where" component={NumbersScreen} options={{title: "Where"}}/>
             </Stack.Navigator>
         </NavigationContainer>

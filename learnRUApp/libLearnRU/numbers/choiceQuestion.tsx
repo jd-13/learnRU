@@ -1,9 +1,5 @@
-import React, { useState, useRef } from 'react';
-import {
-  Text,
-  View,
-  TextInput,
-} from 'react-native';
+import React, { useState } from 'react';
+import { Text, View } from 'react-native';
 
 import { getRandomNumber } from './numbersDb';
 

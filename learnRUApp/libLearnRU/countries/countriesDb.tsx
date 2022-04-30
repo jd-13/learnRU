@@ -1,5 +1,3 @@
-import React, { createElement } from 'react';
-
 const COUNTRIES = [
     // TODO find an Australian flag jpg I can use (this svg breaks during conversion)
     // {
