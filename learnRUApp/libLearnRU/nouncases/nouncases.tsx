@@ -84,6 +84,24 @@ const Configuration = (props) => {
         }
     };
 
+    const setNounsEnabled = (isEnabled: boolean) => {
+        let enabledCases = props.enabledCases;
+        enabledCases.nouns = isEnabled;
+
+        if (enabledCasesIsValid(enabledCases)) {
+            props.setEnabledCases(enabledCases);
+        }
+    };
+
+    const setPronounsEnabled = (isEnabled: boolean) => {
+        let enabledCases = props.enabledCases;
+        enabledCases.pronouns = isEnabled;
+
+        if (enabledCasesIsValid(enabledCases)) {
+            props.setEnabledCases(enabledCases);
+        }
+    };
+
     return (
         <View>
             <View style={{flexDirection: "row", width: "100%"}}>
@@ -97,6 +115,10 @@ const Configuration = (props) => {
             <View style={{flexDirection: "row", width: "100%"}}>
                 <ToggleButton style={{flex: 1}} colour={Colours.optionsButton} isOn={props.enabledCases.singular} text="Singular" onPress={() => { setSingularEnabled(!props.enabledCases.singular) }}/>
                 <ToggleButton style={{flex: 1}} colour={Colours.optionsButton} isOn={props.enabledCases.plural} text="Plural" onPress={() => { setPluralEnabled(!props.enabledCases.plural) }}/>
+            </View>
+            <View style={{flexDirection: "row", width: "100%"}}>
+                <ToggleButton style={{flex: 1}} colour={Colours.optionsButton} isOn={props.enabledCases.nouns} text="Nouns" onPress={() => { setNounsEnabled(!props.enabledCases.nouns) }}/>
+                <ToggleButton style={{flex: 1}} colour={Colours.optionsButton} isOn={props.enabledCases.pronouns} text="Pronouns" onPress={() => { setPronounsEnabled(!props.enabledCases.pronouns) }}/>
             </View>
         </View>
     );
@@ -113,6 +135,9 @@ export class EnabledCases {
     singular: boolean;
     plural: boolean;
 
+    nouns: boolean;
+    pronouns: boolean;
+
     constructor() {
         this.nominative = true;
         this.genitive = true;
@@ -123,12 +148,15 @@ export class EnabledCases {
 
         this.singular = true;
         this.plural = true;
+
+        this.nouns = true;
+        this.pronouns = true;
     }
 };
 
 const enabledCasesIsValid = (enabledCases: EnabledCases) => {
-    if (enabledCases.nominative && enabledCases.plural) {
-        // Just having nominative is enough if we have plural enabled
+    if (enabledCases.nominative && enabledCases.plural && enabledCases.nouns && !enabledCases.pronouns) {
+        // Just having nominative is enough if we have plural enabled and only nouns
         return true;
     } else {
         return (enabledCases.genitive ||
@@ -137,7 +165,9 @@ const enabledCasesIsValid = (enabledCases: EnabledCases) => {
                 enabledCases.instrumental ||
                 enabledCases.prepositional) &&
                (enabledCases.singular ||
-                enabledCases.plural);
+                enabledCases.plural) &&
+               (enabledCases.nouns ||
+                enabledCases.pronouns);
     }
 
 };

@@ -160,7 +160,8 @@ const setupPronoun = (enabledCases: EnabledCases) => {
 };
 
 export const createChoiceQuestionData = (enabledCases: EnabledCases) => {
-    if (Math.random() < 0.5) {
+    if ((enabledCases.nouns && enabledCases.pronouns && Math.random() < 0.5) ||
+        (enabledCases.nouns && !enabledCases.pronouns)) {
         return setupNoun(enabledCases);
     } else {
         return setupPronoun(enabledCases);
