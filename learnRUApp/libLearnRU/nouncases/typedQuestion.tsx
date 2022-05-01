@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
 import { Text, View, TextInput } from 'react-native';
 
-import { getRandomNumber } from './numbersDb';
-
 import { commonStyles } from '../common';
+import { EnabledCases } from './nouncases';
 
 class TypedQuestionData {
     questionText: string;
@@ -19,13 +18,8 @@ class TypedQuestionData {
     }
 };
 
-export const createTypedQuestionData = (selectedMaxNumber: number, enabledNumbers: object) => {
-    const [chosenNumber, translatedString] = getRandomNumber(selectedMaxNumber, enabledNumbers);
-    console.log(`Chose number: ${chosenNumber}`);
-
-    return new TypedQuestionData(`Translate: ${chosenNumber}`,
-                                 translatedString,
-                                 `The correct answer is ${translatedString}`);
+export const createTypedQuestionData = (enabledCases: EnabledCases) => {
+    return new TypedQuestionData("", "", "");
 };
 
 export let resetTypedQuestion = () => {

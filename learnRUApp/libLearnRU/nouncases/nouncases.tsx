@@ -7,6 +7,8 @@ import {
 
 import { Colours, DefaultButton, ToggleButton } from '../common';
 
+import { EnabledCases, enabledCasesIsValid,  } from './enabledCases';
+
 import { TypedQuestion, createTypedQuestionData, resetTypedQuestion } from './typedQuestion';
 import { ChoiceQuestion, createChoiceQuestionData, resetChoiceQuestion } from './choiceQuestion';
 
@@ -124,54 +126,6 @@ const Configuration = (props) => {
     );
 };
 
-export class EnabledCases {
-    nominative: boolean;
-    genitive: boolean;
-    accusative: boolean;
-    dative: boolean;
-    instrumental: boolean;
-    prepositional: boolean;
-
-    singular: boolean;
-    plural: boolean;
-
-    nouns: boolean;
-    pronouns: boolean;
-
-    constructor() {
-        this.nominative = true;
-        this.genitive = true;
-        this.accusative = true;
-        this.dative = true;
-        this.instrumental = true;
-        this.prepositional = true;
-
-        this.singular = true;
-        this.plural = true;
-
-        this.nouns = true;
-        this.pronouns = true;
-    }
-};
-
-const enabledCasesIsValid = (enabledCases: EnabledCases) => {
-    if (enabledCases.nominative && enabledCases.plural && enabledCases.nouns && !enabledCases.pronouns) {
-        // Just having nominative is enough if we have plural enabled and only nouns
-        return true;
-    } else {
-        return (enabledCases.genitive ||
-                enabledCases.accusative ||
-                enabledCases.dative ||
-                enabledCases.instrumental ||
-                enabledCases.prepositional) &&
-               (enabledCases.singular ||
-                enabledCases.plural) &&
-               (enabledCases.nouns ||
-                enabledCases.pronouns);
-    }
-
-};
-
 export const NounCasesScreen = ({navigation}) => {
     const [enabledCases, setEnabledCases] = useState(new EnabledCases());
 
@@ -182,17 +136,17 @@ export const NounCasesScreen = ({navigation}) => {
     const getNewQuestion = (enabledCases: EnabledCases) => {
         console.log("New question requested");
 
-        // const typedQuestionElement = <TypedQuestion data={createTypedQuestionData(enabledCases)}/>
+        const typedQuestionElement = <TypedQuestion data={createTypedQuestionData(enabledCases)}/>
 
         const choiceQuestionElement = <ChoiceQuestion data={createChoiceQuestionData(enabledCases)}/>
 
-        const questionElements = [/*typedQuestionElement,*/ choiceQuestionElement]
+        const questionElements = [typedQuestionElement, choiceQuestionElement];
 
         return questionElements[Math.floor(Math.random() * questionElements.length)];
     };
 
     useEffect(() => {
-        // resetTypedQuestion();
+        resetTypedQuestion();
         resetChoiceQuestion();
     });
 

@@ -5,7 +5,7 @@ import { Colours, commonStyles, DefaultButton, shuffleArray } from '../common';
 
 import { CASE_RULES, PLURAL_RULES, SPELLING_RULES } from './rulesDb';
 
-import { EnabledCases } from './nouncases';
+import { EnabledCases, getAvailableCasesList, getExcludedCasesList } from './enabledCases';
 
 import { Noun } from './nounsDb';
 
@@ -33,36 +33,15 @@ const setupNoun = (enabledCases: EnabledCases) => {
     const chosenNoun: Noun = Noun.getRandomNoun();
     console.log(`Chose noun: ${chosenNoun.getSingularDeclension("nominative").text}`);
 
-    let availableCases: string[] = [];
-    if (enabledCases.genitive) {
-        availableCases.push("genitive");
-    }
-
-    if (enabledCases.accusative) {
-        availableCases.push("accusative");
-    }
-
-    if (enabledCases.dative) {
-        availableCases.push("dative");
-    }
-
-    if (enabledCases.instrumental) {
-        availableCases.push("instrumental");
-    }
-
-    if (enabledCases.prepositional) {
-        availableCases.push("prepositional");
-    }
-
-
     let chosenCase: string = "";
     let chosenDeclension = undefined;
     let questionText = `What is the `;
     let feedbackLine1 = "";
 
     if ((enabledCases.singular && enabledCases.plural && Math.random() > 0.5) ||
-        (enabledCases.singular && !enabledCases.plural)) {
+    (enabledCases.singular && !enabledCases.plural)) {
         // Singular
+        const availableCases: string[] = getAvailableCasesList(enabledCases, false);
         chosenCase = availableCases[Math.floor(Math.random() * availableCases.length)];
         chosenDeclension = chosenNoun.getSingularDeclension(chosenCase);
         questionText += `${chosenCase} singular `;
@@ -72,11 +51,8 @@ const setupNoun = (enabledCases: EnabledCases) => {
             feedbackLine1 = CASE_RULES[chosenCase][chosenDeclension.caseRule];
         }
     } else {
-        // Nominative may be available for plural
-        if (enabledCases.nominative) {
-            availableCases.push("nominative");
-        }
-
+        // Plural
+        const availableCases: string[] = getAvailableCasesList(enabledCases, true);
         chosenCase = availableCases[Math.floor(Math.random() * availableCases.length)];
         chosenDeclension = chosenNoun.getPluralDeclension(chosenCase);
         questionText += `${chosenCase} plural `;
@@ -112,26 +88,7 @@ const setupPronoun = (enabledCases: EnabledCases) => {
 
     console.log(`Chose pronoun: ${chosenPronoun.getDeclension("nominative")}`);
 
-    let excludedCases: string[] = ["nominative"];
-    if (!enabledCases.genitive) {
-        excludedCases.push("genitive");
-    }
-
-    if (!enabledCases.accusative) {
-        excludedCases.push("accusative");
-    }
-
-    if (!enabledCases.dative) {
-        excludedCases.push("dative");
-    }
-
-    if (!enabledCases.instrumental) {
-        excludedCases.push("instrumental");
-    }
-
-    if (!enabledCases.prepositional) {
-        excludedCases.push("prepositional");
-    }
+    const excludedCases: string[] = getExcludedCasesList(enabledCases);
 
     const [chosenCase, isAninmate, chosenDeclension] = chosenPronoun.getRandomCase(excludedCases);
 
