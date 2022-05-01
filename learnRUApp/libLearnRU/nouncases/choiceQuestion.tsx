@@ -9,6 +9,8 @@ import { EnabledCases } from './nouncases';
 
 import { Noun } from './nounsDb';
 
+import { Pronoun } from './pronounsDb';
+
 class ChoiceQuestionData {
     questionText: string;
     answer: string;
@@ -64,11 +66,10 @@ const setupNoun = (enabledCases: EnabledCases) => {
         chosenCase = availableCases[Math.floor(Math.random() * availableCases.length)];
         chosenDeclension = chosenNoun.getSingularDeclension(chosenCase);
         questionText += `${chosenCase} singular `;
-        feedbackLine1 = `Singular ${chosenCase} case`;
 
         // Nominative case has no case rule
         if (chosenDeclension.hasOwnProperty("caseRule")) {
-            feedbackLine1 = feedbackLine1.concat(`, ${CASE_RULES[chosenCase][chosenDeclension.caseRule]}`);
+            feedbackLine1 = CASE_RULES[chosenCase][chosenDeclension.caseRule];
         }
     } else {
         // Nominative may be available for plural
@@ -79,11 +80,10 @@ const setupNoun = (enabledCases: EnabledCases) => {
         chosenCase = availableCases[Math.floor(Math.random() * availableCases.length)];
         chosenDeclension = chosenNoun.getPluralDeclension(chosenCase);
         questionText += `${chosenCase} plural `;
-        feedbackLine1 = `Plural ${chosenCase} case`;
 
         // Nominative case has no case rule
         if (chosenDeclension.hasOwnProperty("caseRule")) {
-            feedbackLine1 = feedbackLine1.concat(`, ${PLURAL_RULES[chosenCase][chosenDeclension.caseRule]}`);
+            feedbackLine1 = PLURAL_RULES[chosenCase][chosenDeclension.caseRule];
         }
     }
     questionText += `of ${chosenNoun.getSingularDeclension("nominative").text}?`;
@@ -101,39 +101,70 @@ const setupNoun = (enabledCases: EnabledCases) => {
                                   [feedbackLine1, feedbackLine2]);
 };
 
-// const setupPronoun = (enabledCases: EnabledCases) => {
-//     // Choose a pronoun from the dictionary
-//     const chosenProoun = Noun.getRandomNoun();
-//     console.log(`Chose pronoun: ${chosenNoun.getSingularDeclension("nominative")}`);
+const setupPronoun = (enabledCases: EnabledCases) => {
+    // Choose a pronoun from the dictionary
+    let chosenPronoun = undefined;
+    if (Math.random() < 0.5) {
+        chosenPronoun = Pronoun.getRandomPersonalPronoun();
+    } else {
+        chosenPronoun = Pronoun.getRandomPossessivePronoun();
+    }
 
-//     let availableCases: string[] = [];
-//     if (enabledCases.genitive) {
-//         availableCases.push("genitive");
-//     }
+    console.log(`Chose pronoun: ${chosenPronoun.getDeclension("nominative")}`);
 
-//     if (enabledCases.accusative) {
-//         availableCases.push("accusative");
-//     }
+    let excludedCases: string[] = ["nominative"];
+    if (!enabledCases.genitive) {
+        excludedCases.push("genitive");
+    }
 
-//     if (enabledCases.dative) {
-//         availableCases.push("dative");
-//     }
+    if (!enabledCases.accusative) {
+        excludedCases.push("accusative");
+    }
 
-//     if (enabledCases.instrumental) {
-//         availableCases.push("instrumental");
-//     }
+    if (!enabledCases.dative) {
+        excludedCases.push("dative");
+    }
 
-//     if (enabledCases.prepositional) {
-//         availableCases.push("prepositional");
-//     }
-// };
+    if (!enabledCases.instrumental) {
+        excludedCases.push("instrumental");
+    }
+
+    if (!enabledCases.prepositional) {
+        excludedCases.push("prepositional");
+    }
+
+    const [chosenCase, isAninmate, chosenDeclension] = chosenPronoun.getRandomCase(excludedCases);
+
+    let questionText = `What is the ${chosenCase} `;
+    if (chosenCase === "accusative") {
+        if (isAninmate) {
+            questionText += "(animate) ";
+        } else {
+            questionText += "(inanimate) ";
+        }
+    }
+    questionText += `of ${chosenPronoun.getDeclension("nominative")}?`;
+
+    const feedbackLine1 = `The correct answer is ${chosenDeclension}`;
+
+    let incorrectChoices: string[] = [];
+    for (let index = 0; index < 2; index++) {
+        const [randomCase, randomIsAnimate, randomDeclension] = chosenPronoun.getRandomCase();
+        incorrectChoices.push(randomDeclension);
+    }
+
+    return new ChoiceQuestionData(questionText,
+                                  chosenDeclension,
+                                  incorrectChoices,
+                                  [feedbackLine1, ""]);
+};
 
 export const createChoiceQuestionData = (enabledCases: EnabledCases) => {
-    // if (Math.random() < 0.5) {
+    if (Math.random() < 0.5) {
         return setupNoun(enabledCases);
-    // } else {
-
-    // }
+    } else {
+        return setupPronoun(enabledCases);
+    }
 };
 
 export let resetChoiceQuestion = () => {
@@ -188,52 +219,3 @@ export const ChoiceQuestion = (props) => {
         </View>
     );
 };
-
-// class CaseChoiceQuestion extends BaseQuestion {
-//     constructor() {
-//         super();
-
-//         console.log("Creating CaseChoiceQuestion");
-
-//         // Choose a noun or pronoun
-//         if (Math.random() > 0.5) {
-//             this._setupNoun();
-//         } else {
-//             this._setupPronoun();
-//         }
-//     }
-
-//     _setupPronoun() {
-//         // Choose a phrase from the dictionary
-//         const chosenPhrase = Dictionary.getRandomPronounChoicePhrase(excludeCases=getDisabledCasesList());
-//         console.log(`Chose pronoun phrase: ${chosenPhrase.getText()}`);
-
-//         // Lookup the correct case of the noun for this phrase
-//         let [correctPronounCase, incorrectChoices] = chosenPhrase.getCorrectAndIncorrectPronounDeclensions();
-//         this._incorrectChoices = incorrectChoices;
-//         console.log(`Correct case: ${correctPronounCase}`);
-
-//         // Get the text for the feedback
-//         const feedbackLine1 = `The correct answer is ${correctPronounCase}`;
-
-//         // Store the results
-//         this._questionText = chosenPhrase.getText();
-//         this._answer = correctPronounCase;
-//         this._feedbackText = [feedbackLine1, ""];
-//     }
-
-//     renderQuestion() {
-//         // Prepare the answer choices
-//         shuffledAnswers = [...this._incorrectChoices];
-//         shuffledAnswers.push(this._answer);
-//         shuffleArray(shuffledAnswers);
-
-//         // Render the question
-//         ReactDOM.render(<CaseChoiceQuestionElement questionText={this._questionText} answer={this._answer} shuffledAnswers={shuffledAnswers} incorrectChoices={this._incorrectChoices} feedbackLine1={this._feedbackText[0]} feedbackLine2={this._feedbackText[1]}/>, questionDiv);
-
-//         // Render the buttons
-//         const reportTitle = this._questionText;
-//         const reportBody = `[${this._shuffledAnswers}][${this._answer}]`;
-//         ReactDOM.render(<MainButtonsElement reportTitle={reportTitle} reportBody={reportBody} nextButtonDisabled={true}/>, buttonsDiv);
-//     }
-// }

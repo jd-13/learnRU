@@ -7,7 +7,7 @@ import {
 
 import { getRandomNumber } from './numbersDb';
 
-import { Colours, commonStyles, DefaultButton } from '../common';
+import { commonStyles } from '../common';
 
 class TypedQuestionData {
     questionText: string;

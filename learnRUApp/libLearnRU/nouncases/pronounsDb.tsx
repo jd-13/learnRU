@@ -204,16 +204,14 @@ export class Pronoun {
     /**
      * Returns a randomly chosen case and declension for this pronoun.
      */
-    getRandomCase(excludeCases=undefined) {
+    getRandomCase(excludeCases: string[] = []) {
         // Choose a case at random
         let availableCases = Object.keys(this._json);
 
         // Exclude cases if requested
-        if (excludeCases != undefined) {
-            availableCases = availableCases.filter(function(element) {
-                return excludeCases.indexOf(element) < 0;
-            });
-        }
+        availableCases = availableCases.filter(function(element) {
+            return excludeCases.indexOf(element) < 0;
+        });
 
         const chosenCaseKey = availableCases[Math.floor(Math.random() * availableCases.length)];
         let chosenCase = this._json[chosenCaseKey];
