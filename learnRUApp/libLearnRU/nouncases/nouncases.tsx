@@ -110,6 +110,8 @@ const Configuration = (props) => {
                 <ToggleButton style={{flex: 1}} colour={Colours.optionsButton} isOn={props.enabledCases.nominative} text="Nom" onPress={() => { setNominativeEnabled(!props.enabledCases.nominative) }}/>
                 <ToggleButton style={{flex: 1}} colour={Colours.optionsButton} isOn={props.enabledCases.genitive} text="Gen" onPress={() => { setGenitiveEnabled(!props.enabledCases.genitive) }}/>
                 <ToggleButton style={{flex: 1}} colour={Colours.optionsButton} isOn={props.enabledCases.accusative} text="Acc" onPress={() => { setAccusativeEnabled(!props.enabledCases.accusative) }}/>
+            </View>
+            <View style={{flexDirection: "row", width: "100%"}}>
                 <ToggleButton style={{flex: 1}} colour={Colours.optionsButton} isOn={props.enabledCases.dative} text="Dat" onPress={() => { setDativeEnabled(!props.enabledCases.dative) }}/>
                 <ToggleButton style={{flex: 1}} colour={Colours.optionsButton} isOn={props.enabledCases.instrumental} text="Inst" onPress={() => { setInstrumentalEnabled(!props.enabledCases.instrumental) }}/>
                 <ToggleButton style={{flex: 1}} colour={Colours.optionsButton} isOn={props.enabledCases.prepositional} text="Prep" onPress={() => { setPrepositionalEnabled(!props.enabledCases.prepositional) }}/>
